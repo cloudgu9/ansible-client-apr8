@@ -9,21 +9,22 @@
 # we skip switches/oobservers because they normally don't
 # have python installed.
 
-- hosts: all:!switches:!oobservers:!idrac:!supermicro-6048r:!supermicro-6018r:!supermicro-1028r
-  remote_user: "{{ ansible_system_user }}"
+- hosts: all
+  become: yes
   tasks: []
 
 # role for nagios clients via NRPE
-- hosts: all:!switches:!oobservers:!nagios:!idrac:!supermicro-6048r:!supermicro-6018r:!supermicro-1028r
-  remote_user: "{{ ansible_system_user }}"
+- hosts: all
+  become: yes
   roles:
-    - { role: nagios-client }
-    - { role: firewall_client, when: manage_firewall_client }
+    #-  nagios-client 
+    -  role: nagios-client 
+  #  - { role: firewall_client, when: manage_firewall_client }
 
 # role for nagios server
 - hosts: nagios
-  remote_user: "{{ ansible_system_user }}"
+  become: yes
   roles:
-    - { role: nagios }
-    - { role: firewall, when: manage_firewall }
-    - { role: instructions }
+    -  role: nagios 
+#    - { role: firewall, when: manage_firewall }
+#    - { role: instructions }

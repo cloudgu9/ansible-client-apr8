@@ -33,13 +33,13 @@
     - freeipmi
     - OpenIPMI-modalias
 
-- name: Install SuperMicro Perl Dependencies
-  yum: name={{ item }} state=present
-  become: true
-  when: supermicro_enable_checks
-  with_items:
-    - perl-IPC-Run
-    - perl-IO-Tty
+#- name: Install SuperMicro Perl Dependencies
+#  yum: name={{ item }} state=present
+#  become: true
+#  when: supermicro_enable_checks
+#  with_items:
+#    - perl-IPC-Run
+#    - perl-IO-Tty
 
 - name: Setup nagios SSL HTTPD vhost
   copy: src=nagios.conf dest=/etc/httpd/conf.d/
@@ -93,52 +93,52 @@
   copy: src=nagios.cfg dest=/etc/nagios/nagios.cfg
   become: true
 
-- name: Copy idrac check plugin
-  copy: src=idrac_2.2rc4 dest=/usr/lib64/nagios/plugins/idrac_2.2rc4 mode="a+x"
-  become: true
+#- name: Copy idrac check plugin
+#  copy: src=idrac_2.2rc4 dest=/usr/lib64/nagios/plugins/idrac_2.2rc4 mode="a+x"
+#  become: true
 
-- name: Configure Dell idrac snmp mib file
-  copy: src=idrac-smiv2.mib  dest={{snmp_mib_path}}/ mode=0755
-  become: true
+#- name: Configure Dell idrac snmp mib file
+#  copy: src=idrac-smiv2.mib  dest={{snmp_mib_path}}/ mode=0755
+#  become: true
 
-- name: Create nagios socket tmp files
-  file:
-    path={{supermicro_ipmicfg_path}}
-    state=directory
-    owner=nagios
-    group=nagios
-    mode=0777
-    seuser=system_u
-  become: true
+#- name: Create nagios socket tmp files
+#  file:
+#    path={{supermicro_ipmicfg_path}}
+#    state=directory
+#    owner=nagios
+#    group=nagios
+#    mode=0777
+#    seuser=system_u
+#  become: true
 
-- name: Configure SuperMicro IPMI Check
-  copy: src=check_ipmi_sensor dest={{nagios_plugin_path}}/ mode=0755
-  become: true
+#- name: Configure SuperMicro IPMI Check
+#  copy: src=check_ipmi_sensor dest={{nagios_plugin_path}}/ mode=0755
+#  become: true
 
-- name: Generate the SuperMicro monitoring template
-  template: src={{ item + ".j2" }}
-            dest={{supermicro_ipmicfg_path}}/{{ item }}
-  with_items:
-    - ipmi.cfg
-  become: true
+#- name: Generate the SuperMicro monitoring template
+#  template: src={{ item + ".j2" }}
+#            dest={{supermicro_ipmicfg_path}}/{{ item }}
+#  with_items:
+#    - ipmi.cfg
+# become: true
 
 - name: Generate the nagios monitoring templates
   template: src={{ item + ".j2" }}
             dest=/etc/nagios/conf.d/{{ item }}
   with_items:
-    - oobservers.cfg
-    - switches.cfg
-    - webservers.cfg
+#    - oobservers.cfg
+#    - switches.cfg
+##    - webservers.cfg
     - servers.cfg
     - commands.cfg
-    - elkservers.cfg
-    - elasticsearch.cfg
-    - idrac.cfg
-    - supermicro-6018r.cfg
-    - supermicro-6048r.cfg
-    - supermicro-1028r.cfg
-    - jenkins.cfg
-    - dns.cfg
+#    - elkservers.cfg
+#    - elasticsearch.cfg
+#    - idrac.cfg
+#    - supermicro-6018r.cfg
+#    - supermicro-6048r.cfg
+#    - supermicro-1028r.cfg
+#    - jenkins.cfg
+#    - dns.cfg
   register: nagios_needs_restart
   become: true
 
@@ -159,16 +159,16 @@
   become: true
 
 # SELinux boolean for nagios
-- name: Apply SELinux boolean nagios_run_sudo
-  seboolean: name=nagios_run_sudo state=yes persistent=yes
-  ignore_errors: true
-  become: true
+#- name: Apply SELinux boolean nagios_run_sudo
+#  seboolean: name=nagios_run_sudo state=yes persistent=yes
+#  ignore_errors: true
+#  become: true
 
 # SELinux boolean for nagios
-- name: Apply SELinux boolean logging_syslogd_run_nagios_plugins
-  seboolean: name=logging_syslogd_run_nagios_plugins state=yes persistent=yes
-  ignore_errors: true
-  become: true
+#- name: Apply SELinux boolean logging_syslogd_run_nagios_plugins
+#  seboolean: name=logging_syslogd_run_nagios_plugins state=yes persistent=yes
+#  ignore_errors: true
+#  become: true
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1291718
 - name: Create nagios socket tmp files
