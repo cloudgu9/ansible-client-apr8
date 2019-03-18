@@ -33,13 +33,13 @@
     - freeipmi
     - OpenIPMI-modalias
 
-#- name: Install SuperMicro Perl Dependencies
-#  yum: name={{ item }} state=present
-#  become: true
-#  when: supermicro_enable_checks
-#  with_items:
-#    - perl-IPC-Run
-#    - perl-IO-Tty
+- name: Install SuperMicro Perl Dependencies
+  yum: name={{ item }} state=present
+  become: true
+  when: supermicro_enable_checks
+  with_items:
+    - perl-IPC-Run
+    - perl-IO-Tty
 
 - name: Setup nagios SSL HTTPD vhost
   copy: src=nagios.conf dest=/etc/httpd/conf.d/
@@ -101,26 +101,27 @@
 #  copy: src=idrac-smiv2.mib  dest={{snmp_mib_path}}/ mode=0755
 #  become: true
 
-#- name: Create nagios socket tmp files
-#  file:
-#    path={{supermicro_ipmicfg_path}}
-#    state=directory
-#    owner=nagios
-#    group=nagios
-#    mode=0777
-#    seuser=system_u
-#  become: true
+- name: Create nagios socket tmp files
+  file:
+    path={{supermicro_ipmicfg_path}}
+    state=directory
+    owner=nagios
+    group=nagios
+    mode=0777
+    seuser=system_u
+  become: true
 
-#- name: Configure SuperMicro IPMI Check
-#  copy: src=check_ipmi_sensor dest={{nagios_plugin_path}}/ mode=0755
-#  become: true
+- name: Configure SuperMicro IPMI Check
+  copy: src=check_ipmi_sensor dest={{nagios_plugin_path}}/ mode=0755
+  become: true
 
-#- name: Generate the SuperMicro monitoring template
-#  template: src={{ item + ".j2" }}
-#            dest={{supermicro_ipmicfg_path}}/{{ item }}
-#  with_items:
-#    - ipmi.cfg
-# become: true
+- name: Generate the SuperMicro monitoring template
+  template: 
+      src={{ item + ".j2" }}
+      dest={{supermicro_ipmicfg_path}}/{{ item }}
+  with_items:
+    - ipmi.cfg
+  become: true
 
 - name: Generate the nagios monitoring templates
   template: src={{ item + ".j2" }}
