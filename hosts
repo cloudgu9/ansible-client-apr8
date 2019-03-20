@@ -1,10 +1,10 @@
 # NOTE: only put one unique host per category here
-
+##
 # this is your main nagios server and
 # where ansible will deploy it.
 [nagios]
 nagios.dcca.com
-localhost
+client1.dcca.com
 
 # use this for generic Linux servers
 [servers]
