@@ -209,3 +209,4 @@ supermicro_enable_checks: true
 # ansible-nagios-finalMar18-1
 # ansible-nagios-Final
 # ansible-nagios-core-nrpe
+# ansible-nagios-core-nrpe 3-20-19
