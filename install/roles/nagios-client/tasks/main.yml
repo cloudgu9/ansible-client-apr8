@@ -37,17 +37,6 @@
     dest=/etc/nagios/nrpe.cfg
   become: true
 
-# SELinux boolean for nagios
-#- name: Apply SELinux boolean nagios_run_sudo
-#  seboolean: name=nagios_run_sudo state=yes persistent=yes
-#  ignore_errors: true
-#  become: true
-
-# SELinux boolean for nagios
-#- name: Apply SELinux boolean logging_syslogd_run_nagios_plugins
-#  seboolean: name=logging_syslogd_run_nagios_plugins state=yes persistent=yes
-#  ignore_errors: true
-#  become: true
 
 - name: Start NRPE service
   command: systemctl restart nrpe.service

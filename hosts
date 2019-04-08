@@ -3,12 +3,11 @@
 # this is your main nagios server and
 # where ansible will deploy it.
 [nagios]
-nagios.dcca.com
-client1.dcca.com
+linux1.dcca.com
 
 # use this for generic Linux servers
 [servers]
-ipa.dcca.com
+linux1.dcca.com
 
 # inherits servers checks, includes http
 ##[webservers]

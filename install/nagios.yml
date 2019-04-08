@@ -17,14 +17,4 @@
 - hosts: all
   become: yes
   roles:
-    #-  nagios-client 
     -  role: nagios-client 
-  #  - { role: firewall_client, when: manage_firewall_client }
-
-# role for nagios server
-- hosts: nagios
-  become: yes
-  roles:
-    -  role: nagios 
-#    - { role: firewall, when: manage_firewall }
-#    - { role: instructions }

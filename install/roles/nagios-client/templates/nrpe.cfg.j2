@@ -39,7 +39,7 @@ server_port={{nrpe_tcp_port}}
 # and you do not want nrpe to bind on all interfaces.
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-#server_address=127.0.0.1
+server_address=127.0.0.1
 
 
 
@@ -206,8 +206,6 @@ command[check_root]=/usr/lib64/nagios/plugins/check_disk -w 20% -c 10% -p {{ ans
 command[check_zombie_procs]=/usr/lib64/nagios/plugins/check_procs -w 5 -c 10 -s Z
 command[check_total_procs]=/usr/lib64/nagios/plugins/check_procs -w {{ warning_proc }} -c {{ critical_proc }}
 command[check_uptime]=/usr/lib64/nagios/plugins/check_uptime
-command[check_tcp_es]=/usr/lib64/nagios/plugins/check_tcp -H localhost -p {{ elasticsearch_port }}
-command[check_jenkins]=/usr/lib64/nagios/plugins/check_tcp -H localhost -p {{ jenkins_port }}
 
 # The following examples allow user-supplied arguments and can
 # only be used if the NRPE daemon was compiled with support for
@@ -215,10 +213,10 @@ command[check_jenkins]=/usr/lib64/nagios/plugins/check_tcp -H localhost -p {{ je
 # config file is set to '1'.  This poses a potential security risk, so
 # make sure you read the SECURITY file before doing this.
 
-#command[check_users]=/usr/lib64/nagios/plugins/check_users -w $ARG1$ -c $ARG2$
-#command[check_load]=/usr/lib64/nagios/plugins/check_load -w $ARG1$ -c $ARG2$
-#command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
-#command[check_procs]=/usr/lib64/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
+command[check_users]=/usr/lib64/nagios/plugins/check_users -w $ARG1$ -c $ARG2$
+command[check_load]=/usr/lib64/nagios/plugins/check_load -w $ARG1$ -c $ARG2$
+command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
+command[check_procs]=/usr/lib64/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
 
 
 

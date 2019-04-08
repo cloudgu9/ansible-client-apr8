@@ -215,3 +215,4 @@ supermicro_enable_checks: true
 # ansible-nagios-core-nrpe
 # nagios-ansible
 # ansible-nagios
+# ansible-client-apr8
